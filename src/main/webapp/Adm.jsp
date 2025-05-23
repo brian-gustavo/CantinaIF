@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %> <!-- JSTL com Jakarta EE -->
+<!--%@ taglib uri="http://jakarta.ee/jsp/jstl/core" prefix="c" %--> <!-- JSTL com Jakarta EE -->
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -67,7 +67,7 @@
 
 <!-- Lista de produtos renderizados dinamicamente -->
 <div id="productContainer">
-    <c:forEach var="produto" items="${produtos}">
+    <!--<c:forEach var="produto" items="${produtos}">
         <!-- O data-type será usado no JavaScript para filtrar os produtos por categoria -->
         <div class="product" data-type="${produto.categoria.name().toLowerCase()}">
             <!-- Imagem do produto -->
@@ -96,7 +96,7 @@
                 <button type="submit">Salvar Alterações</button>
             </form>
         </div>
-    </c:forEach>
+    <!--</c:forEach>-->
 </div>
 
 <!-- Script JS para controlar o filtro por categoria -->
