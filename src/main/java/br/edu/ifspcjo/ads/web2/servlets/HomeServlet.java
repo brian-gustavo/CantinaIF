@@ -1,36 +1,36 @@
 package servlet;
 
-import Dao.UserDao;
-import model.Comprador;
+import Dao.ProductDao;
+import model.Produto;
+import utils.ConnectionFactory;
 
-import jakarta.servlet.*;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-import java.io.IOException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet 
-{
-    private static final long serialVersionUID = 1L;
-	
-    private final UserDao userDao = new UserDao();
+import java.io.IOException;
+import java.sql.Connection;
+import java.util.List;
+
+@WebServlet("/home")
+public class HomeServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String prontuario = request.getParameter("prontuario");
-        String senha = request.getParameter("senha");
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            ProductDao productDao = new ProductDao(connection);
+            List<Produto> produtos = productDao.listarProdutos();
 
-        Comprador comprador = userDao.encontrarPorProntuarioESenha(prontuario, senha);
+            // Envia a lista para a página JSP
+            request.setAttribute("produtos", produtos);
+            request.getRequestDispatcher("/home.jsp").forward(request, response);
 
-        if (comprador != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("comprador", comprador);
-            response.sendRedirect("home.jsp");
-        } else {
-            request.setAttribute("error", "Usuário ou senha inválidos.");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } catch (Exception e) {
+            throw new ServletException("Erro ao carregar produtos", e);
         }
     }
 }
