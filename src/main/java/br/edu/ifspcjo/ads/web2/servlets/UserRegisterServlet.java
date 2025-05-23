@@ -1,6 +1,6 @@
-package servlet;
+package servlets;
 
-import Dao.UserDao;
+import dao.UserDao;
 import model.Comprador;
 
 import jakarta.servlet.*;
@@ -22,7 +22,7 @@ public class UserRegisterServlet extends HttpServlet
         String prontuario = request.getParameter("prontuario");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
-	String nome = request.getParameter("nome");
+        String nome = request.getParameter("nome");
 
         Comprador comprador = new Comprador(prontuario, email, senha, nome);
         userDao.create(comprador);
