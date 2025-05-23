@@ -1,4 +1,4 @@
-package dao;
+package Dao;
 
 import model.Produto;
 import java.sql.*;
@@ -7,7 +7,7 @@ import java.util.List;
 
 public class HomeDao {
 
-    private Connection connection;
+    public Connection connection;
 
     public HomeDao(Connection connection) {
         this.connection = connection;
@@ -37,8 +37,8 @@ public class HomeDao {
                 // Converte a string do banco para o enum Categoria
                 produto.setCategoria(Produto.Categoria.valueOf(rs.getString("categoria")));
 
-                // Se você tiver o campo de imagemURL no banco:
-                produto.setImagemURL(rs.getString("imagemURL"));
+                // Se tiver o campo de imagemURL no banco:
+                //produto.setImagemURL(rs.getString("imagemURL"));
 
                 produtos.add(produto);
             }
