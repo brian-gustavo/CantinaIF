@@ -1,4 +1,5 @@
 package model;
+
 import model.Vendedor;
 
 public class Produto 
@@ -17,14 +18,14 @@ public class Produto
     private float preco;
     private int estoque;
     private Categoria categoria;
-    private Vendedor vendedor; //Associação com o vendedor (se refere diretamente ao vendedor.prontuario)
+    private Vendedor vendedor; // Associação com o vendedor (se refere diretamente ao vendedor.prontuario)
 	
-    public Produto(String nome, String descricao, float preco, int estoque) {
+    public Produto(String nome, String descricao, float preco, int estoque, Vendedor vendedor) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.estoque = estoque;
-	this.vendedor = vendedor;
+        this.vendedor = vendedor;
     }
 
     public int getId() {
