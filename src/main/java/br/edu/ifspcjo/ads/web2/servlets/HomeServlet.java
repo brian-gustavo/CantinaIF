@@ -1,36 +1,36 @@
 package servlet;
 
-import Dao.ProductDao;
-import model.Produto;
-import utils.ConnectionFactory;
+import Dao.UserDao;
+import model.Comprador;
 
-import jakarta.servlet.ServletException;
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.*;
 import java.io.IOException;
-import java.sql.Connection;
-import java.util.List;
 
-@WebServlet("/home")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet 
+{
+    private static final long serialVersionUID = 1L;
+	
+    private final UserDao userDao = new UserDao();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        try (Connection connection = ConnectionFactory.getConnection()) {
-            ProductDao productDao = new ProductDao(connection);
-            List<Produto> produtos = productDao.listarProdutos();
+        String prontuario = request.getParameter("prontuario");
+        String senha = request.getParameter("senha");
 
-            // Envia a lista para a página JSP
-            request.setAttribute("produtos", produtos);
-            request.getRequestDispatcher("/home.jsp").forward(request, response);
+        Comprador comprador = userDao.encontrarPorProntuarioESenha(prontuario, senha);
 
-        } catch (Exception e) {
-            throw new ServletException("Erro ao carregar produtos", e);
+        if (comprador != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("comprador", comprador);
+            response.sendRedirect("home.jsp");
+        } else {
+            request.setAttribute("error", "Usuário ou senha inválidos.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
 }
