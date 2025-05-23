@@ -1,8 +1,8 @@
 // AVISO: Ainda não testado por prolemas com a página home.
 
-package servlets;
+package servlet;
 
-import dao.ProductDao;
+import Dao.ProductDao;
 import model.Produto;
 import model.Produto.Categoria;
 
