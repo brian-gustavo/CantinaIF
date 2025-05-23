@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %> <!-- JSTL com Jakarta EE -->
+<!-- %@ taglib uri="http://jakarta.ee/jsp/jstl/core" prefix="c" %> --> <!-- JSTL com Jakarta EE -->
 <%@ page import="model.Comprador" %> <!-- Importa classe Comprador para uso na sessão -->
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
         <!-- Mostra o prontuário do comprador salvo na sessão -->
         <span>Prontuário: ${sessionScope.comprador.prontuario}</span>
         <a href="carrinho.jsp">Carrinho</a>
-        <a href="logout">Logout</a>
+        <a href="login.jsp">Logout</a>
     </div>
 </div>
 
@@ -33,7 +33,7 @@
 
 <!-- Lista de produtos renderizados dinamicamente -->
 <div id="productContainer">
-    <c:forEach var="produto" items="${produtos}">
+    <!--  <c:forEach var="produto" items="${produtos}">-->
         <!-- O data-type será usado no JavaScript para filtrar os produtos por categoria -->
         <div class="product" data-type="${produto.categoria.name().toLowerCase()}">
             <!-- Imagem do produto -->
@@ -52,7 +52,7 @@
                 <button type="submit" class="add-to-cart">Adicionar</button>
             </form>
         </div>
-    </c:forEach>
+    <!-- </c:forEach> -->
 </div>
 
 <!-- Script JS para controlar o filtro por categoria -->
