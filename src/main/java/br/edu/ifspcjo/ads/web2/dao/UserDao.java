@@ -1,4 +1,4 @@
-package dao;
+package Dao;
 
 import model.Comprador;
 import utils.DataSourceManager;
