@@ -1,4 +1,4 @@
-package Dao;
+package dao;
 
 import model.Produto;
 import java.sql.*;
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeDao {
-
     public Connection connection;
 
     public HomeDao(Connection connection) {
@@ -38,7 +37,7 @@ public class HomeDao {
                 produto.setCategoria(Produto.Categoria.valueOf(rs.getString("categoria")));
 
                 // Se tiver o campo de imagemURL no banco:
-                //produto.setImagemURL(rs.getString("imagemURL"));
+                // produto.setImagemURL(rs.getString("imagemURL"));
 
                 produtos.add(produto);
             }
