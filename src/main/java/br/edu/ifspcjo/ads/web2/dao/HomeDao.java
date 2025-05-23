@@ -19,7 +19,7 @@ public class HomeDao {
     public List<Produto> listarProdutosDisponiveis() throws SQLException {
         List<Produto> produtos = new ArrayList<>();
 
-        String sql = "SELECT * FROM produtos WHERE estoque > 0";
+        String sql = "SELECT * FROM Produto WHERE estoque > 0";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
