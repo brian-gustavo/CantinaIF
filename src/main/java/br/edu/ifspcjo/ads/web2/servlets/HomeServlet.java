@@ -1,6 +1,6 @@
-package servlet;
+package servlets;
 
-import Dao.ProductDao;
+import dao.ProductDao;
 import model.Produto;
 import utils.ConnectionFactory;
 
@@ -16,7 +16,6 @@ import java.util.List;
 
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
