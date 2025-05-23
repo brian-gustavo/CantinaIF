@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 public class ConnectionFactory {
-
     private static DataSource dataSource;
 
     static {
