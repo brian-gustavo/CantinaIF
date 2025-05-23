@@ -1,4 +1,4 @@
-package Dao;
+package dao;
 
 import model.Comprador;
 import utils.DataSourceManager;
@@ -6,7 +6,6 @@ import utils.DataSourceManager;
 import java.sql.*;
 
 public class UserDao {
-
     public void create(Comprador comprador) {
         String sql = "INSERT INTO Comprador (prontuario, email, senha, nome) VALUES (?, ?, ?, ?)";
 
