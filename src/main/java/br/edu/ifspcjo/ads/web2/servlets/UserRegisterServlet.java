@@ -1,6 +1,6 @@
-package servlets;
+package servlet;
 
-import dao.UserDao;
+import Dao.UserDao;
 import model.Comprador;
 
 import jakarta.servlet.*;
