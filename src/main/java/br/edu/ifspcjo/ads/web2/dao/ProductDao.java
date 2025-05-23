@@ -1,6 +1,6 @@
 // AVISO: Ainda não testado por prolemas com a página home.
 
-package dao;
+package Dao;
 
 import model.Produto;
 import java.sql.*;
