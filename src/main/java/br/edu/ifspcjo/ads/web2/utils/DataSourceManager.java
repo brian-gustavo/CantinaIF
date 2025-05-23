@@ -14,7 +14,6 @@ public class DataSourceManager {
     }
 
 	public static ConnectionFactory getDataSource() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
