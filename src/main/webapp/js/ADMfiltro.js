@@ -1,6 +1,6 @@
 //filtra e carrega as coisas adequadamente
-function carregarProdutosUser(categoria = 'todos') {
-    fetch(`apiUser/produtos?categoria=${categoria}`)
+function carregarProdutosADM(categoria = 'todos') {
+    fetch(`apiAdm/produtos?categoria=${categoria}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -38,7 +38,10 @@ function carregarProdutosUser(categoria = 'todos') {
 					          <button onclick="alterarQuantidade(${produto.id}, 1)">+</button>
 						</div>
 					</div>
-                    <button onclick="adicionarAoCarrinho(${produto.id})">Comprar</button>
+                    <form method="post" action="editar-produto" class="adicionar-ao-carrinho">
+                        <input type="hidden" name="idProduto" value="${produto.id}">
+                        <button type="submit" class="add-to-cart">Editar</button>
+                    </form>
                 `;
 
                 container.appendChild(produtoDiv);
@@ -60,29 +63,6 @@ function alterarQuantidade(produtoId, delta) {
   input.value = valor;
 }
 
-//adiciona os produtos ao carrinho
-function adicionarAoCarrinho(produtoId) {
-  const quantidade = document.getElementById(`quantidade-${produtoId}`).value;
-
-  fetch('carrinho', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      produtoId: produtoId,
-      quantidade: quantidade
-    })
-  })
-  .then(response => {
-    if (response.ok) {
-      alert('Produto adicionado ao carrinho!');
-    } else {
-      alert('Erro ao adicionar produto.');
-    }
-  });
-}
-
 //desenha no html
 document.addEventListener('DOMContentLoaded', function () {
     const botoesFiltro = document.querySelectorAll('.filter-btn');
@@ -96,10 +76,10 @@ document.addEventListener('DOMContentLoaded', function () {
             this.classList.add('active');
 
             // Chama o carregamento AJAX com a categoria selecionada
-            carregarProdutosUser(categoria);
+            carregarProdutosADM(categoria);
         });
     });
 
     // Carrega todos os produtos ao abrir a página
-    carregarProdutosUser('todos');
+    carregarProdutosADM('todos');
 });
