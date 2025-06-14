@@ -38,10 +38,7 @@ function carregarProdutosADM(categoria = 'todos') {
 					          <button onclick="alterarQuantidade(${produto.id}, 1)">+</button>
 						</div>
 					</div>
-                    <form method="post" action="editar-produto" class="adicionar-ao-carrinho">
-                        <input type="hidden" name="idProduto" value="${produto.id}">
-                        <button type="submit" class="add-to-cart">Editar</button>
-                    </form>
+					<button onclick="abrirPopupEdicao(${produto.id})">Editar</button>
                 `;
 
                 container.appendChild(produtoDiv);
@@ -83,3 +80,51 @@ document.addEventListener('DOMContentLoaded', function () {
     // Carrega todos os produtos ao abrir a página
     carregarProdutosADM('todos');
 });
+
+function abrirPopupEdicao(id) {
+  fetch('CarregarProdutoServlet?id=' + id)
+    .then(response => response.json())
+    .then(produto => {
+      document.getElementById('editar-id').value = produto.id;
+      document.getElementById('editar-nome').value = produto.nome;
+      document.getElementById('editar-descricao').value = produto.descricao;
+      document.getElementById('editar-preco').value = produto.preco;
+      document.getElementById('editar-estoque').value = produto.estoque;
+      document.getElementById('editar-categoria').value = produto.categoria;
+      document.getElementById('popup-edicao').style.display = 'block';
+    });
+}
+
+document.getElementById('form-editar-produto').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+
+  fetch('EditarProdutosServlet', {
+    method: 'POST',
+    body: formData
+  })
+  .then(() => {
+    alert('Produto atualizado com sucesso!');
+    fecharPopup();
+    location.reload(); // ou atualizar a lista dinamicamente
+  });
+});
+
+function confirmarExclusao() {
+  if (confirm("Tem certeza que deseja excluir este produto?")) {
+    const id = document.getElementById('editar-id').value;
+    fetch('EditarProdutosServlet', {
+      method: 'POST',
+      body: new URLSearchParams({ id: id, acao: 'excluir' })
+    })
+    .then(() => {
+      alert('Produto excluído com sucesso!');
+      fecharPopup();
+      location.reload();
+    });
+  }
+}
+
+function fecharPopup() {
+  document.getElementById('popup-edicao').style.display = 'none';
+}
