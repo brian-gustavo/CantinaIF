@@ -72,7 +72,7 @@
             </select><br><br>
 
             <label for="imagem">Imagem do Produto:</label>
-            <input type="file" id="imagem" name="imagem" accept="image/*"><br><br>
+            <input type="file" id="imagem" name="imagem" accept="image/*" required><br><br>
         
             <button type="submit">Criar</button>
         </form>
