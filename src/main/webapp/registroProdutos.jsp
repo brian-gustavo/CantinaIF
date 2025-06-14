@@ -8,10 +8,6 @@
     <meta charset="UTF-8">
     <title>Painel do Vendedor</title>
     <link rel="stylesheet" href="css/user.css"> <script>
-        // Formulário de edição
-        function toggleEditForm(id) {
-            document.getElementById('edit-form-' + id).style.display = 'block';
-        }
 
         // Formulário de criação de novos produtos
         function toggleNewProductForm() {
@@ -19,17 +15,6 @@
             form.style.display = (form.style.display === 'none') ? 'block' : 'none';
         }
 
-        // Função para atualização manual de quantidade de itens disponíveis
-        function updateQuantity(id, action) {
-            const input = document.getElementById('qty-' + id);
-            let value = parseInt(input.value);
-            if (action === 'up') value++;
-            if (action === 'down' && value > 0) value--;
-
-            input.value = value;
-
-            fetch('atualizarEstoque?id=' + id + '&estoque=' + value, { method: 'POST' });
-        }
     </script>
 </head>
 <body>
@@ -72,11 +57,43 @@
             </select><br><br>
 
             <label for="imagem">Imagem do Produto:</label>
-            <input type="file" id="imagem" name="imagem" accept="image/*" required><br><br>
+            <input type="file" id="imagem" name="imagem" accept="image/*"><br><br>
         
             <button type="submit">Criar</button>
         </form>
     </div>
+    
+    <div id="popup-edicao" style="display:none; position:fixed; top:10%; left:30%; background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
+  <form id="form-editar-produto" enctype="multipart/form-data">
+    <input type="hidden" name="id" id="editar-id">
+
+    <input type="text" name="nome" id="editar-nome" placeholder="Nome do produto" required><br><br>
+
+    <textarea name="descricao" id="editar-descricao" placeholder="Descrição" required></textarea><br><br>
+
+    <input type="number" name="preco" id="editar-preco" step="0.01" required placeholder="Preço"><br><br>
+
+    <input type="number" name="estoque" id="editar-estoque" required placeholder="Estoque"><br><br>
+
+    <select name="categoria" id="editar-categoria" required>
+      <option disabled selected>Selecione uma categoria</option>
+      <option value="SALGADO">Salgado</option>
+      <option value="DOCE">Doce</option>
+      <option value="LANCHE">Lanche</option>
+      <option value="BEBIDA">Bebida</option>
+    </select><br><br>
+
+    <label for="editar-imagem">Imagem:</label><br>
+    <input type="file" name="imagem" id="editar-imagem" accept="image/*"><br><br>
+
+    <button type="submit">Salvar</button>
+    <button type="button" onclick="confirmarExclusao()">Excluir</button>
+    <button type="button" onclick="fecharPopup()">Cancelar</button>
+  </form>
+</div>
+    
+    
+    <div id="form-editar-produto"></div>
     
     <div id="productContainer" class="produtosPai">
         </div>
