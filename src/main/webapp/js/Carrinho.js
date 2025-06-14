@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
       let totalGeral = 0;
 
       produtos.forEach(produto => {
-        const { nome, descricao, preco, quantidade, subtotal, imagemUrl } = produto;
+        const { nome, descricao, preco, quantidade, subtotal} = produto;
+		const imagem = produto.imagemBase64 ? `data:image/jpeg;base64,${produto.imagemBase64}` : "img/padrao.png";
 
         totalItens += quantidade;
         totalGeral += subtotal;
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         itemDiv.innerHTML = `
           <div style="display: flex; gap: 10px; margin-bottom: 16px;">
-            <img src="${imagemUrl || 'img/padrao.png'}" alt="Produto" style="width: 100px; height: 100px; object-fit: cover;">
+            <img src="${imagem || 'img/padrao.png'}" alt="Produto" style="width: 100px; height: 100px; object-fit: cover;">
             <div>
               <h3>${nome}</h3>
               <p>${descricao}</p>
