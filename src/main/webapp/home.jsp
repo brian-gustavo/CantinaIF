@@ -28,6 +28,17 @@
 		text-decoration: none;
   		color: white;">Logout</a>
     </div>
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+	    <div class="icon"></div>
+	</div>
+	
+	<script>
+	function toggleDarkMode() {
+	    document.body.classList.toggle('dark-mode');
+	    document.querySelector('.dark-mode-toggle').classList.toggle('active');
+	}
+	</script>
+
 </div>
 
 <!-- Botões de filtro por categoria -->
