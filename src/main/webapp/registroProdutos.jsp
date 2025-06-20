@@ -44,6 +44,16 @@
             <button class="new-product-btn" onclick="toggleNewProductForm()">+ Novo Produto</button>
             <a href="logout" style="color: white; margin-left: 20px;">Logout</a>
         </div>
+         <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+	    <div class="icon"></div>
+	</div>
+	
+	<script>
+	function toggleDarkMode() {
+	    document.body.classList.toggle('dark-mode');
+	    document.querySelector('.dark-mode-toggle').classList.toggle('active');
+	}
+	</script>
     </div>
     
     <!-- Menu de filtragem por tipo de produto -->
