@@ -23,7 +23,6 @@ import model.Produto;
 
 @WebServlet("/carrinho")
 public class CarrinhoServlet extends HttpServlet {
-   
 	private static final long serialVersionUID = 1L;
 
 	@Override
