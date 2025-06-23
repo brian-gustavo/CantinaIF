@@ -32,4 +32,5 @@ public class APIUserProdutos extends HttpServlet {
         out.print(new Gson().toJson(produtos));
         out.flush();
     }
+
 }
