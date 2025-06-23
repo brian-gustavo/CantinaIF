@@ -9,27 +9,10 @@
     <title>Painel do Vendedor</title>
     <link rel="stylesheet" href="css/user.css"> <!-- Link para o arquivo de estilização user.css -->
     <script>
-        // Formulário de edição
-        function toggleEditForm(id) {
-            document.getElementById('edit-form-' + id).style.display = 'block';
-        }
-
         // Formulário de criação de novos produtos
         function toggleNewProductForm() {
             const form = document.getElementById('new-product-form');
             form.style.display = (form.style.display === 'none') ? 'block' : 'none';
-        }
-
-        // Função para atualização manual de quantidade de itens disponíveis
-        function updateQuantity(id, action) {
-            const input = document.getElementById('qty-' + id);
-            let value = parseInt(input.value);
-            if (action === 'up') value++;
-            if (action === 'down' && value > 0) value--;
-
-            input.value = value;
-
-            fetch('atualizarEstoque?id=' + id + '&estoque=' + value, { method: 'POST' });
         }
     </script>
 </head>
@@ -85,6 +68,9 @@
 	            <option value="LANCHE">Lanche</option>
 	            <option value="BEBIDA">Bebida</option>
 	        </select><br><br>
+	        
+	         <label for="editar-imagem">Imagem:</label><br>
+    		<input type="file" name="imagem" id="editar-imagem" accept="image/*"><br><br>
 	
 	        <button type="submit">Criar</button>
 	    </form>
@@ -95,29 +81,5 @@
     <!-- Produtos serão inseridos aqui via JavaScript -->
 </div>
     <script src="js/admFiltro.js"></script>
-    <script>
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const products = document.querySelectorAll('.product');
-
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Marca o botão ativo
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-
-            const filter = button.getAttribute('data-filter');
-
-            // Mostra ou oculta produtos com base no filtro
-            products.forEach(product => {
-                const type = product.getAttribute('data-type');
-                if (filter === 'todos' || filter === type) {
-                    product.style.display = 'inline-block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
-        });
-    });
-    </script>
 </body>
 </html>
