@@ -1,14 +1,15 @@
 package model;
 
-public class Produto {
+public class Produto 
+{
     // Classe do tipo enum para o atributo Categoria
     public enum Categoria {
-        SALGADO,
-        DOCE,
-        LANCHE,
-        BEBIDA
+	SALGADO,
+	DOCE,
+	LANCHE,
+	BEBIDA
     }
-
+	
     private int id;
     private String nome;
     private String descricao;
@@ -16,17 +17,17 @@ public class Produto {
     private int estoque;
     private Categoria categoria;
     private byte[] imagem;
-
-    // Construtor original (mantido para compatibilidade, se necessário)
+	
+    // Construtor original
     public Produto(String nome, String descricao, float preco, int estoque) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.estoque = estoque;
-        this.imagem = null;
+        this.imagem = null; // Inicializa imagem como null por padrão neste construtor
     }
 
-    // Construtor adicional para incluir a imagem (mantido para compatibilidade, se necessário)
+    // Construtor adicional para incluir a imagem
     public Produto(String nome, String descricao, float preco, int estoque, byte[] imagem) {
         this.nome = nome;
         this.descricao = descricao;
@@ -35,43 +36,11 @@ public class Produto {
         this.imagem = imagem;
     }
 
-    // --- NOVO CONSTRUTOR PARA CORRESPONDER AO SERVLET DE EDIÇÃO ---
-    public Produto(int id, String nome, String descricao, float preco, int estoque, String categoriaString) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.preco = preco;
-        this.estoque = estoque;
-        // Converte a String da categoria para o enum Categoria
-        try {
-            this.categoria = Categoria.valueOf(categoriaString.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            // Lidar com categoria inválida, talvez defina um valor padrão ou lance uma exceção
-            System.err.println("Categoria inválida: " + categoriaString);
-            this.categoria = null; // Ou um valor padrão, como Categoria.OUTRO (se você adicionar)
-        }
-        this.imagem = null; // Inicializa a imagem como null, pois não é passada neste construtor
-    }
+    public Produto(int id2, String nome2, String descricao2, double preco2, int estoque2, String categoria2) {
+		// TODO Auto-generated constructor stub
+	}
 
-    // --- NOVO CONSTRUTOR SOBRECARREGADO QUE INCLUI A IMAGEM (OPCIONAL) ---
-    // Você pode precisar deste se for atualizar a imagem junto com outros dados
-    public Produto(int id, String nome, String descricao, float preco, int estoque, String categoriaString, byte[] imagem) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.preco = preco;
-        this.estoque = estoque;
-        try {
-            this.categoria = Categoria.valueOf(categoriaString.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            System.err.println("Categoria inválida: " + categoriaString);
-            this.categoria = null;
-        }
-        this.imagem = imagem;
-    }
-
-
-    public int getId() {
+	public int getId() {
         return id;
     }
 
@@ -118,7 +87,7 @@ public class Produto {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-
+    
     public byte[] getImagem() {
         return imagem;
     }
