@@ -52,11 +52,10 @@
 
 <!-- Lista de produtos renderizados dinamicamente -->
 <div id="productContainer" class="produtosPai">
-        
 </div>
 
 <!-- Script JS para controlar o filtro por categoria -->
-<script src="js/mostruario.js"></script>
+<script src="js/filtro.js"></script>
 
 </body>
 </html>
