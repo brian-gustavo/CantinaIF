@@ -86,5 +86,4 @@ public class CarrinhoServlet extends HttpServlet {
 	    String json = gson.toJson(jsonList);
 	    response.getWriter().write(json);
 	}
-
 }
