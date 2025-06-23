@@ -86,7 +86,7 @@
     <div class="info">
         <!-- Mostra o prontuário do comprador salvo na sessão -->
         <span>Prontuário: ${sessionScope.comprador.prontuario}</span>
-        <a href="carrinho.jsp" style="
+        <a href="Carrinho.jsp" style="
         font-weight: bold;
 		text-decoration: none;
   		color: white;">Carrinho</a>
@@ -108,6 +108,6 @@
             </form>
         </div>
         
-        <script src="js/carrinho.js"></script>
+        <script src="js/Carrinho.js"></script>
 </body>
 </html>
