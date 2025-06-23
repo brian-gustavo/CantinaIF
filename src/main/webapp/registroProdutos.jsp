@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="model.Produto" %>
-<%@ page import="servlets.APIProdutosServlet" %>
+<%@ page import="servlets.APIUserProdutos" %>
 
 <!DOCTYPE html>
 <html lang="pt-br">
