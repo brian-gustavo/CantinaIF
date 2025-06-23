@@ -14,12 +14,12 @@
 <!-- Barra superior com logo, prontuário do usuário e links -->
 <div class="navbar">
     <div class="logo">
-        	<img src="img/Logo.png" alt="Logo" style="height: 40px;">
+        	<a href="home.jsp"><img src="img/Logo.png" alt="Logo" style="height: 40px;"></a>
     </div>    
     <div class="info">
         <!-- Mostra o prontuário do comprador salvo na sessão -->
         <span>Prontuário: ${sessionScope.comprador.prontuario}</span>
-        <a href="carrinho.jsp" style="
+        <a href="Carrinho.jsp" style="
         font-weight: bold;
 		text-decoration: none;
   		color: white;">Carrinho</a>
@@ -28,17 +28,6 @@
 		text-decoration: none;
   		color: white;">Logout</a>
     </div>
-    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
-	    <div class="icon"></div>
-	</div>
-	
-	<script>
-	function toggleDarkMode() {
-	    document.body.classList.toggle('dark-mode');
-	    document.querySelector('.dark-mode-toggle').classList.toggle('active');
-	}
-	</script>
-
 </div>
 
 <!-- Botões de filtro por categoria -->
@@ -52,6 +41,7 @@
 
 <!-- Lista de produtos renderizados dinamicamente -->
 <div id="productContainer" class="produtosPai">
+        
 </div>
 
 <!-- Script JS para controlar o filtro por categoria -->
