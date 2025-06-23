@@ -94,7 +94,7 @@
     <div id="productContainer" class="produtosPai">
     <!-- Produtos serão inseridos aqui via JavaScript -->
 </div>
-    <script src="js/mostruario.js"></script>
+    <script src="js/admFiltro.js"></script>
     <script>
     const filterButtons = document.querySelectorAll('.filter-btn');
     const products = document.querySelectorAll('.product');
