@@ -38,7 +38,7 @@ function carregarProdutosADM(categoria = 'todos') {
 					          <button onclick="alterarQuantidade(${produto.id}, 1)">+</button>
 						</div>
 					</div>
-					<button onclick="abrirPopupEdicao(${produto.id})">Editar</button>
+					<button type="button" onclick="abrirPopupEdicao(${produto.id})">Editar</button>
                 `;
 
                 container.appendChild(produtoDiv);
@@ -81,8 +81,9 @@ document.addEventListener('DOMContentLoaded', function () {
     carregarProdutosADM('todos');
 });
 
+//janela de edição
 function abrirPopupEdicao(id) {
-  fetch('CarregarProdutoServlet?id=' + id)
+  fetch('ADMfiltro?id=' + id)
     .then(response => response.json())
     .then(produto => {
       document.getElementById('editar-id').value = produto.id;
@@ -110,6 +111,7 @@ document.getElementById('form-editar-produto').addEventListener('submit', functi
   });
 });
 
+//confirma exclusão de elementos
 function confirmarExclusao() {
   if (confirm("Tem certeza que deseja excluir este produto?")) {
     const id = document.getElementById('editar-id').value;
@@ -124,7 +126,7 @@ function confirmarExclusao() {
     });
   }
 }
-
+// fechar janela de edição
 function fecharPopup() {
   document.getElementById('popup-edicao').style.display = 'none';
 }
