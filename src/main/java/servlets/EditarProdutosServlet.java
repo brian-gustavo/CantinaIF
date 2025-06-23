@@ -24,16 +24,16 @@ public class EditarProdutosServlet extends HttpServlet {
         if ("salvar".equals(acao)) {
             String nome = request.getParameter("nome");
             String descricao = request.getParameter("descricao");
-            double preco = Double.parseDouble(request.getParameter("preco"));
+            float preco = Float.parseFloat(request.getParameter("preco"));
             int estoque = Integer.parseInt(request.getParameter("estoque"));
-            String categoria = request.getParameter("categoria");
+            String categoria = request.getParameter("categoriaString");
 
             // Processar imagem
             Part imagemPart = request.getPart("imagem");
             InputStream imagemStream = imagemPart.getSize() > 0 ? imagemPart.getInputStream() : null;
 
             Produto produto = new Produto(id, nome, descricao, preco, estoque, categoria);
-            dao.atualizarProduto(produto, imagemStream); // método precisa aceitar stream opcional
+            dao.atualizarProduto(produto, imagemStream); // Método precisa aceitar stream opcional
 
         } else if ("excluir".equals(acao)) {
             dao.excluirProduto(id);
@@ -41,7 +41,5 @@ public class EditarProdutosServlet extends HttpServlet {
 
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().write("Produto atualizado com sucesso");
-
     }
 }
-
