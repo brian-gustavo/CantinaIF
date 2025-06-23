@@ -23,6 +23,7 @@ import model.Produto;
 
 @WebServlet("/carrinho")
 public class CarrinhoServlet extends HttpServlet {
+   
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -85,4 +86,5 @@ public class CarrinhoServlet extends HttpServlet {
 	    String json = gson.toJson(jsonList);
 	    response.getWriter().write(json);
 	}
+
 }
