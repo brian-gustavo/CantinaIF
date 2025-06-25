@@ -126,6 +126,85 @@ body.dark-mode .product-info h3 {
     margin: 2px 0;
 }
 
+
+button{
+	border-radius: 7px;
+    background-color: #00796b;
+    border: none;
+    padding: 10px;
+    box-shadow: 0 0 15px #bbb;
+    color: whitesmoke;
+}
+
+button:hover{
+	border-radius: 7px;
+    background-color: #00695c;
+    border: none;
+    padding: 10px;
+    box-shadow: 0 0 15px #bbb;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+#new-product-form button{
+	border-radius: 7px;
+    background-color: #00796b;
+    border: none;
+    padding: 10px;
+    box-shadow: 0 0 15px #bbb;
+    color: whitesmoke;
+}
+
+#new-product-form button:hover{
+	border-radius: 7px;
+    background-color: #00695c;
+    border: none;
+    padding: 10px;
+    box-shadow: 0 0 15px #bbb;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+#new-product-form{
+    margin: 10px auto;
+    max-width: 800px;
+    border-radius: 7px;
+    background-color: #ddd;
+    border: none;
+    padding: 10px;
+	display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#new-product-form input, textarea, select, option {
+	border-radius: 7px;
+    background-color: #ddd;
+    border: none;
+    padding: 10px;
+    box-shadow: 0 0 15px #bbb;
+}
+
+#new-product-form button{
+	border-radius: 7px;
+    background-color: #00796b;
+    border: none;
+    padding: 10px;
+    box-shadow: 0 0 15px #bbb;
+    color: whitesmoke;
+}
+
+#new-product-form button:hover{
+	border-radius: 7px;
+    background-color: #00695c;
+    border: none;
+    padding: 10px;
+    box-shadow: 0 0 15px #bbb;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
 .add-to-cart, .edit-btn, .save-qty-btn, .new-product-btn {
     background-color: #00796b;
     color: white;
