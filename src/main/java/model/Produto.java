@@ -36,7 +36,7 @@ public class Produto
         this.imagem = imagem;
     }
 
-    public Produto(int id2, String nome2, String descricao2, double preco2, int estoque2, String categoria2) {
+    public Produto(int id2, String nome2, String descricao2, double preco2, int estoque2, String categoria2, String imagemUrl) {
 		// TODO Auto-generated constructor stub
 	}
 
