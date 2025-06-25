@@ -187,44 +187,4 @@ public class ProductDao {
         }
         return produto;
     }
-    
-    public void atualizarProduto(Produto produto, InputStream imagemStream) {
-        String sql = (imagemStream != null)
-            ? "UPDATE Produto SET nome=?, descricao=?, preco=?, estoque=?, categoria=?, imagem=? WHERE id=?"
-            : "UPDATE Produto SET nome=?, descricao=?, preco=?, estoque=?, categoria=? WHERE id=?";
-
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, produto.getNome());
-            stmt.setString(2, produto.getDescricao());
-            stmt.setDouble(3, produto.getPreco());
-            stmt.setInt(4, produto.getEstoque());
-            stmt.setString(5, produto.getCategoria().name());
-
-            if (imagemStream != null) {
-                stmt.setBlob(6, imagemStream);
-                stmt.setInt(7, produto.getId());
-            } else {
-                stmt.setInt(6, produto.getId());
-            }
-
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void excluirProduto(int id) {
-        String sql = "DELETE FROM Produto WHERE id=?";
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
