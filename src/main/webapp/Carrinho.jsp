@@ -102,7 +102,6 @@
   <div class="resumo" id="resumo-total"></div>
 
         <div class="finalizar">
-            <p><strong>Total: R$ </strong></p>
             <form action="FinalizarCompraServlet" method="post">
                 <button type="submit">FINALIZAR COMPRA</button>
             </form>
