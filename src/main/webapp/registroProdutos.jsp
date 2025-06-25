@@ -63,38 +63,8 @@
         </form>
     </div>
     
-    <div id="popup-edicao" style="display:none; position:fixed; top:10%; left:30%; background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
-  <form id="form-editar-produto" action="EditarProdutosServlet" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="id" id="editar-id">
-
-    <input type="text" name="nome" id="editar-nome" placeholder="Nome do produto" required><br><br>
-
-    <textarea name="descricao" id="editar-descricao" placeholder="Descrição" required></textarea><br><br>
-
-    <input type="number" name="preco" id="editar-preco" step="0.01" required placeholder="Preço"><br><br>
-
-    <input type="number" name="estoque" id="editar-estoque" required placeholder="Estoque"><br><br>
-
-    <select name="categoria" id="editar-categoria" required>
-      <option disabled selected>Selecione uma categoria</option>
-      <option value="SALGADO">Salgado</option>
-      <option value="DOCE">Doce</option>
-      <option value="LANCHE">Lanche</option>
-      <option value="BEBIDA">Bebida</option>
-    </select><br><br>
-
-    <label for="editar-imagem">Imagem:</label><br>
-    <input type="file" name="imagem" id="editar-imagem" accept="image/*"><br><br>
-    <input type="hidden" name="acao" value="salvar">
-
-    <button type="submit">Salvar</button>
-    <button type="button" onclick="confirmarExclusao()">Excluir</button>
-    <button type="button" onclick="fecharPopup()">Cancelar</button>
-  </form>
-</div>
+    <div id="productContainer" class="produtosPai"></div>
     
-    <div id="productContainer" class="produtosPai">
-        </div>
-    <script src="js/ADMfiltro.js"></script>
+    <script src="js/ADMFiltros.js"></script>
 </body>
 </html>
