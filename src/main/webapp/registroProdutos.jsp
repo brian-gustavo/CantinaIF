@@ -58,25 +58,11 @@
     
     <div id="productContainer" class="produtosPai">
         </div>
+        
     <script>
-    function toggleEditForm(id) {
-        document.getElementById('edit-form-' + id).style.display = 'block';
-    }
-
     function toggleNewProductForm() {
         const form = document.getElementById('new-product-form');
         form.style.display = (form.style.display === 'none') ? 'block' : 'none';
-    }
-
-    function updateQuantity(id, action) {
-        const input = document.getElementById('qty-' + id);
-        let value = parseInt(input.value);
-        if (action === 'up') value++;
-        if (action === 'down' && value > 0) value--;
-
-        input.value = value;
-
-        fetch('atualizarEstoque?id=' + id + '&estoque=' + value, { method: 'POST' });
     }
     </script>
     <script src="js/admFiltro.js"></script>
