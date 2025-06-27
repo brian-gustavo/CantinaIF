@@ -1,8 +1,7 @@
 package model;
 
-public class Produto 
+public class Produto
 {
-    // Classe do tipo enum para o atributo Categoria
     public enum Categoria {
 	SALGADO,
 	DOCE,
@@ -13,34 +12,33 @@ public class Produto
     private int id;
     private String nome;
     private String descricao;
-    private float preco;
+    private float preco; // Mantido como float, mas considere BigDecimal
     private int estoque;
     private Categoria categoria;
     private byte[] imagem;
-	
-    // Construtor original
+
+    public Produto() {
+    }
+
     public Produto(String nome, String descricao, float preco, int estoque) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.estoque = estoque;
-        this.imagem = null; // Inicializa imagem como null por padrão neste construtor
+        this.imagem = null;
     }
 
-    // Construtor adicional para incluir a imagem
-    public Produto(String nome, String descricao, float preco, int estoque, byte[] imagem) {
+    // Construtor adicional para incluir a imagem e a categoria
+    public Produto(String nome, String descricao, float preco, int estoque, Categoria categoria, byte[] imagem) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.estoque = estoque;
+        this.categoria = categoria;
         this.imagem = imagem;
     }
 
-    public Produto(int id2, String nome2, String descricao2, double preco2, int estoque2, String categoria2, String imagemUrl) {
-		// TODO Auto-generated constructor stub
-	}
-
-	public int getId() {
+    public int getId() {
         return id;
     }
 
