@@ -4,30 +4,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Carrinho de Compras</title>
-    <style>
-        .mensagem-sucesso {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            padding: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            border-radius: 5px;
-        }
-        .mensagem-erro {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            padding: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            border-radius: 5px;
-        }
-    </style>
-    <meta charset="UTF-8">
     <title>Carrinho - Cantina Universitária</title>
-    <link rel="stylesheet" href="css/user.css">
+    <link rel="stylesheet" href="css/carrinho.css">
 </head>
 <body>
 
