@@ -29,7 +29,6 @@ function carregarProdutosADM(categoria = 'todos') {
 						<h3>${produto.nome}</h3>
 						<p>${produto.descricao}</p>
 						<p><strong>Preço:</strong> R$ ${produto.preco}</p>
-						<p><strong>Disponível:</strong> ${produto.estoque}</p>
 					</div>
 				`;
 
