@@ -22,20 +22,16 @@ function carregarProdutosADM(categoria = 'todos') {
 					: `<img src="img/placeholder-image.png" alt="Imagem padrão" class="product-image">`;
 
 				produtoDiv.innerHTML = `
-                    <div class="product-image-wrapper">
-                        ${imageTag}
-                    </div>
+					<div class="product-image-wrapper">
+						${imageTag}
+					</div>
 					<div>
 						<h3>${produto.nome}</h3>
-					    <p>${produto.descricao}</p>
-					    <p><strong>Preço:</strong> R$ ${produto.preco}</p>
-					    <p><strong>Disponível:</strong> ${produto.estoque}</p>
+						<p>${produto.descricao}</p>
+						<p><strong>Preço:</strong> R$ ${produto.preco}</p>
+						<p><strong>Disponível:</strong> ${produto.estoque}</p>
 					</div>
-                    <form method="post" action="editar-produto" class="adicionar-ao-carrinho">
-                        <input type="hidden" name="idProduto" value="${produto.id}">
-                        <button type="submit" class="add-to-cart">Editar</button>
-                    </form>
-                `;
+				`;
 
 				container.appendChild(produtoDiv);
 			});
@@ -45,14 +41,6 @@ function carregarProdutosADM(categoria = 'todos') {
 			const container = document.getElementById('productContainer');
 			container.innerHTML = '<p>Não foi possível carregar os produtos. Tente novamente mais tarde.</p>';
 		});
-}
-
-function alterarQuantidade(produtoId, delta) {
-	const input = document.getElementById(`quantidade-${produtoId}`);
-	let valor = parseInt(input.value);
-	valor = isNaN(valor) ? 1 : valor + delta;
-	if (valor < 1) valor = 1;
-	input.value = valor;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
