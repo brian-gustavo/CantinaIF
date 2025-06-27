@@ -1,8 +1,7 @@
 package model;
 
-public class Produto 
+public class Produto
 {
-    // Classe do tipo enum para o atributo Categoria
     public enum Categoria {
 	SALGADO,
 	DOCE,
@@ -13,15 +12,30 @@ public class Produto
     private int id;
     private String nome;
     private String descricao;
-    private float preco;
+    private float preco; // Mantido como float, mas considere BigDecimal
     private int estoque;
     private Categoria categoria;
-	
+    private byte[] imagem;
+
+    public Produto() {
+    }
+
     public Produto(String nome, String descricao, float preco, int estoque) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.estoque = estoque;
+        this.imagem = null;
+    }
+
+    // Construtor adicional para incluir a imagem e a categoria
+    public Produto(String nome, String descricao, float preco, int estoque, Categoria categoria, byte[] imagem) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.estoque = estoque;
+        this.categoria = categoria;
+        this.imagem = imagem;
     }
 
     public int getId() {
@@ -70,5 +84,13 @@ public class Produto
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+    
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
     }
 }
