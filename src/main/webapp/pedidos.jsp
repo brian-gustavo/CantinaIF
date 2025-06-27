@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Painel de Pedidos - Vendedor</title>
-<link rel="stylesheet" href="css/user.css">
+<link rel="stylesheet" href="css/pedidos.css">
 </head>
 <body>
     <div class="navbar">
