@@ -29,7 +29,6 @@ function carregarProdutosUser(categoria = 'todos') {
                         <h3>${produto.nome}</h3>
                         <p>${produto.descricao}</p>
                         <p><strong>Preço:</strong> R$ ${produto.preco}</p>
-                        <p><strong>Disponível:</strong> ${produto.estoque}</p>
                     </div>
                     <div class="product-actions">
                         <input type="number" id="quantidade-${produto.id}" value="1" min="1" class="quantity-input">
@@ -77,9 +76,7 @@ function adicionarAoCarrinho(produtoId) {
     .then(response => {
         if (response.ok) {
             alert('Produto adicionado ao carrinho!');
-            // Opcional: recarregar o carrinho ou atualizar o contador
         } else {
-            // Tenta ler a mensagem de erro do backend se disponível
             response.text().then(text => {
                 try {
                     const errorData = JSON.parse(text);
