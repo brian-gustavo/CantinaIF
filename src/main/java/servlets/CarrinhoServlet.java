@@ -10,6 +10,7 @@ import java.util.Base64;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 import dao.ProductDao;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,22 +24,47 @@ import model.Produto;
 
 @WebServlet("/carrinho")
 public class CarrinhoServlet extends HttpServlet {
-   
 	private static final long serialVersionUID = 1L;
 
 	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        BufferedReader reader = request.getReader();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         Gson gson = new Gson();
-        JsonObject json = gson.fromJson(reader, JsonObject.class);
+        
+        try (BufferedReader reader = request.getReader()) {
+            JsonObject json = gson.fromJson(reader, JsonObject.class);
 
-        int produtoId = json.get("produtoId").getAsInt();
-        int quantidade = json.get("quantidade").getAsInt();
+            if (json == null || !json.has("produtoId") || !json.has("quantidade")) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write(gson.toJson(Map.of("message", "Requisição inválida: produtoId ou quantidade ausente.")));
+                return;
+            }
 
-        ProductDao dao = new ProductDao();
-        Produto produto = dao.buscarPorId(produtoId);
+            int produtoId = json.get("produtoId").getAsInt();
+            int quantidade = json.get("quantidade").getAsInt();
 
-        if (produto != null && produto.getEstoque() >= quantidade) {
+            if (quantidade <= 0) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write(gson.toJson(Map.of("message", "Quantidade deve ser um número positivo.")));
+                return;
+            }
+
+            ProductDao dao = new ProductDao();
+            Produto produto = dao.buscarPorId(produtoId);
+
+            if (produto == null) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                response.getWriter().write(gson.toJson(Map.of("message", "Produto não encontrado.")));
+                return;
+            }
+            
+            if (produto.getEstoque() < quantidade) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write(gson.toJson(Map.of("message", "Quantidade solicitada excede o estoque disponível. Estoque: " + produto.getEstoque())));
+                return;
+            }
+
             HttpSession session = request.getSession();
             Carrinho carrinho = (Carrinho) session.getAttribute("carrinho");
 
@@ -49,8 +75,16 @@ public class CarrinhoServlet extends HttpServlet {
 
             carrinho.adicionarProduto(produto, quantidade);
             response.setStatus(HttpServletResponse.SC_OK);
-        } else {
+            response.getWriter().write(gson.toJson(Map.of("message", "Produto adicionado ao carrinho com sucesso!")));
+
+        } catch (JsonSyntaxException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write(gson.toJson(Map.of("message", "Erro no formato JSON da requisição.")));
+            e.printStackTrace();
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write(gson.toJson(Map.of("message", "Erro interno ao processar a requisição.")));
+            e.printStackTrace();
         }
     }
 	
@@ -68,16 +102,22 @@ public class CarrinhoServlet extends HttpServlet {
 
 	    for (ItemCarrinho item : itens) {
 	        Map<String, Object> itemJson = new HashMap<>();
-	        itemJson.put("id", item.getProduto().getId());
-	        itemJson.put("nome", item.getProduto().getNome());
-	        itemJson.put("descricao", item.getProduto().getDescricao());
-	        itemJson.put("preco", item.getProduto().getPreco());
-	        itemJson.put("quantidade", item.getQuantidade());
-	        itemJson.put("subtotal", item.getSubtotal());
+	        
+	        Map<String, Object> produtoJson = new HashMap<>();
+	        produtoJson.put("id", item.getProduto().getId());
+	        produtoJson.put("nome", item.getProduto().getNome());
+	        produtoJson.put("descricao", item.getProduto().getDescricao());
+	        produtoJson.put("preco", item.getProduto().getPreco());
+	        produtoJson.put("estoque", item.getProduto().getEstoque());
+	        produtoJson.put("categoria", item.getProduto().getCategoria());
 	        
 	        byte[] imagemBytes = item.getProduto().getImagem();
 	        String imageBase64 = imagemBytes != null ? Base64.getEncoder().encodeToString(imagemBytes) : null;
-	        itemJson.put("imagemBase64", imageBase64);
+	        produtoJson.put("imagemBase64", imageBase64);
+	        
+	        itemJson.put("produto", produtoJson);
+	        itemJson.put("quantidade", item.getQuantidade());
+	        itemJson.put("subtotal", item.getSubtotal());
 	        
 	        jsonList.add(itemJson);
 	    }
@@ -86,5 +126,4 @@ public class CarrinhoServlet extends HttpServlet {
 	    String json = gson.toJson(jsonList);
 	    response.getWriter().write(json);
 	}
-
 }
