@@ -35,5 +35,4 @@ public class APIProdutosADM extends HttpServlet {
         out.print(new Gson().toJson(produtos));
         out.flush();
     }
-
 }
