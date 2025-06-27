@@ -39,7 +39,7 @@ public class ImageServlet extends HttpServlet {
                     out.flush();
                 }
             } else {
-                // Se o produto ou a imagem não for encontrada, retorne uma imagem padrão ou 404
+                // Se o produto ou a imagem não for encontrada, retorna uma imagem padrão ou 404
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Imagem não encontrada para o produto ID: " + productId);
             }
 
