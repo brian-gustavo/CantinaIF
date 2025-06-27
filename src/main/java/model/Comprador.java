@@ -5,7 +5,11 @@ public class Comprador {
 	private String email;
 	private String senha;
 	private String nome;
-	
+
+	// Para o Gson
+    public Comprador() {
+    }
+
 	public Comprador(String prontuario, String email, String senha, String nome) {
         this.prontuario = prontuario;
         this.email = email;
@@ -42,6 +46,6 @@ public class Comprador {
 	}
 	
 	public void setNome(String nome) {
-		this.nome = senha;
+		this.nome = nome;
 	}
 }
