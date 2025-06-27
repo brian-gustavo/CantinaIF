@@ -3,7 +3,6 @@ package dao;
 import model.Produto;
 import utils.ConnectionFactory;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,10 +14,8 @@ import java.util.List;
 
 public class ProductDao {
     public ProductDao() {
-        
     }
 
-    // Para criação de novos produtos
     public void create(Produto produto) throws SQLException {
         String sql = "INSERT INTO Produto (nome, descricao, preco, estoque, categoria, imagem) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = ConnectionFactory.getConnection();
@@ -50,7 +47,6 @@ public class ProductDao {
         }
     }
 
-    // Listar todos os produtos (para o administrador, inclusive estoque zero)
     public List<Produto> listarProdutosDisponiveisADM() {
         List<Produto> produtos = new ArrayList<>();
         String sql = "SELECT * FROM Produto";
@@ -69,7 +65,6 @@ public class ProductDao {
         return produtos;
     }
 
-    // Listar produtos com quantidade disponível > 0 (para o usuário)
     public List<Produto> listarProdutosDisponiveisUser() {
         List<Produto> produtos = new ArrayList<>();
         String sql = "SELECT * FROM Produto WHERE estoque > 0";
@@ -89,7 +84,6 @@ public class ProductDao {
         return produtos;
     }
 
-    // Listar produtos por categoria (com estoque > zero)
     public List<Produto> listarProdutosPorCategoriaUser(String categoriaNome) {
         List<Produto> produtos = new ArrayList<>();
         String sql = "SELECT * FROM Produto WHERE estoque > 0 AND categoria = ?";
@@ -110,8 +104,7 @@ public class ProductDao {
         }
         return produtos;
     }
-    
-    // Listar produtos por categoria (ADM)
+ 
     public List<Produto> listarProdutosPorCategoriaADM(String categoriaNome) {
         List<Produto> produtos = new ArrayList<>();
         String sql = "SELECT * FROM Produto WHERE categoria = ?";
@@ -133,7 +126,6 @@ public class ProductDao {
         return produtos;
     }
 
-    // Mapeamento dos produtos para os JSONs
     private Produto mapearProduto(ResultSet rs) throws SQLException {
         Produto produto = new Produto(null, null, 0, 0);
 
@@ -146,7 +138,7 @@ public class ProductDao {
         String categoriaString = rs.getString("categoria");
         if (categoriaString != null && !categoriaString.isEmpty()) {
             try {
-                produto.setCategoria(Produto.Categoria.valueOf(categoriaString));
+            	produto.setCategoria(Produto.Categoria.valueOf(categoriaString.trim().toUpperCase()));
             } catch (IllegalArgumentException e) {
                 System.err.println("Erro: Categoria '" + categoriaString + "' inválida no banco de dados para o produto ID: " + produto.getId());
             }
@@ -154,7 +146,6 @@ public class ProductDao {
         return produto;
     }
 
-    // Para o carrinho (reservar estoque)
     public void reservarEstoque(int produtoId, int quantidade) throws SQLException {
         String sql = "UPDATE Produto SET estoque = estoque - ? WHERE id = ? AND estoque >= ?";
         try (Connection conn = ConnectionFactory.getConnection();
@@ -169,7 +160,6 @@ public class ProductDao {
         }
     }
 
-    // Busca produtos exatos para colocar no carrinho
     public Produto buscarPorId(int id) {
         Produto produto = null;
         String sql = "SELECT * FROM Produto WHERE id = ?";
