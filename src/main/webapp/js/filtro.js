@@ -1,4 +1,3 @@
-// Filtra e carrega as coisas adequadamente
 function carregarProdutosUser(categoria = 'todos') {
     fetch(`apiUser/produtos?categoria=${categoria}`)
         .then(response => {
@@ -26,19 +25,16 @@ function carregarProdutosUser(categoria = 'todos') {
                     <div class="product-image-wrapper">
                         ${imageTag}
                     </div>
-					<div>
-						<h3>${produto.nome}</h3>
-					    <p>${produto.descricao}</p>
-					    <p><strong>Preço:</strong> R$ ${produto.preco}</p>
-					    <p><strong>Disponível:</strong> ${produto.estoque}</p>
-
-					    <div class="quantidade-container">
-					          <button onclick="alterarQuantidade(${produto.id}, -1)">-</button>
-					          <input type="text" id="quantidade-${produto.id}" value="1" readonly>
-					          <button onclick="alterarQuantidade(${produto.id}, 1)">+</button>
-						</div>
-					</div>
-                    <button onclick="adicionarAoCarrinho(${produto.id})">Comprar</button>
+                    <div>
+                        <h3>${produto.nome}</h3>
+                        <p>${produto.descricao}</p>
+                        <p><strong>Preço:</strong> R$ ${produto.preco}</p>
+                        <p><strong>Disponível:</strong> ${produto.estoque}</p>
+                    </div>
+                    <div class="product-actions">
+                        <input type="number" id="quantidade-${produto.id}" value="1" min="1" class="quantity-input">
+                        <button onclick="adicionarAoCarrinho(${produto.id})">Comprar</button>
+                    </div>
                 `;
 
                 container.appendChild(produtoDiv);
@@ -51,55 +47,70 @@ function carregarProdutosUser(categoria = 'todos') {
         });
 }
 
-//altera a quantidade do pedido
 function alterarQuantidade(produtoId, delta) {
-  const input = document.getElementById(`quantidade-${produtoId}`);
-  let valor = parseInt(input.value);
-  valor = isNaN(valor) ? 1 : valor + delta;
-  if (valor < 1) valor = 1;
-  input.value = valor;
+    const input = document.getElementById(`quantidade-${produtoId}`);
+    let valor = parseInt(input.value);
+    valor = isNaN(valor) ? 1 : valor + delta;
+    if (valor < 1) valor = 1;
+    input.value = valor;
 }
 
-//adiciona os produtos ao carrinho
 function adicionarAoCarrinho(produtoId) {
-  const quantidade = document.getElementById(`quantidade-${produtoId}`).value;
+    const quantidadeInput = document.getElementById(`quantidade-${produtoId}`);
+    const quantidade = quantidadeInput ? parseInt(quantidadeInput.value) : 1;
 
-  fetch('carrinho', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      produtoId: produtoId,
-      quantidade: quantidade
-    })
-  })
-  .then(response => {
-    if (response.ok) {
-      alert('Produto adicionado ao carrinho!');
-    } else {
-      alert('Erro ao adicionar produto.');
+    if (isNaN(quantidade) || quantidade < 1) {
+        alert('Por favor, insira uma quantidade válida.');
+        return;
     }
-  });
+
+    fetch('carrinho', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            produtoId: produtoId,
+            quantidade: quantidade
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Produto adicionado ao carrinho!');
+            // Opcional: recarregar o carrinho ou atualizar o contador
+        } else {
+            // Tenta ler a mensagem de erro do backend se disponível
+            response.text().then(text => {
+                try {
+                    const errorData = JSON.parse(text);
+                    alert(`Erro ao adicionar produto: ${errorData.message || 'Erro desconhecido.'}`);
+                } catch (e) {
+                    alert(`Erro ao adicionar produto. Status: ${response.status}. Detalhes: ${text}`);
+                }
+            }).catch(() => {
+                alert(`Erro ao adicionar produto. Status: ${response.status}.`);
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Erro na requisição de adicionar ao carrinho:', error);
+        alert('Não foi possível conectar ao servidor para adicionar o produto.');
+    });
 }
 
-//desenha no html
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     const botoesFiltro = document.querySelectorAll('.filter-btn');
 
     botoesFiltro.forEach(botao => {
-        botao.addEventListener('click', function () {
+        botao.addEventListener('click', function() {
             const categoria = this.getAttribute('data-filter');
 
-            // Atualiza visualmente o botão ativo
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
 
-            // Chama o carregamento AJAX com a categoria selecionada
             carregarProdutosUser(categoria);
         });
     });
 
-    // Carrega todos os produtos ao abrir a página
     carregarProdutosUser('todos');
 });
